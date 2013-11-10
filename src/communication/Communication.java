@@ -3,7 +3,14 @@ package communication;
 import java.io.IOException;
 import java.net.Socket;
 
+import requesthandlers.AddUserHandler;
+import requesthandlers.CreateGroupHandler;
+import requesthandlers.CreateUserHandler;
+import requesthandlers.DisbandGroupHandler;
+import requesthandlers.GetCoordsHandler;
+import requesthandlers.NoHandler;
 import requesthandlers.RequestHandler;
+import requesthandlers.UpdateCoordsHandler;
 
 public class Communication {
 	
@@ -12,28 +19,36 @@ public class Communication {
 		COM_CREATE_GROUP = 2,
 		COM_DISBAND_GROUP = 3,
 		COM_ADD_USER = 4,
-		COM_CREATE_USER = 5;
+		COM_CREATE_USER = 5,
+		ANS_NO_DATA = 6,
+		ANS_GET_COORDS = 7;
 	
 	public static void handleRequest(Socket s) throws IOException {
 		int b = s.getInputStream().read();
 		
 		RequestHandler handler = null;
-		
-		// TODO intialize correct handler in case statements
+	
 		switch (b) {
 		case COM_UPDATE_COORD:
+			handler = new UpdateCoordsHandler(s);
 			break;
 		case COM_GET_COORDS:
+			handler = new GetCoordsHandler(s);
 			break;
 		case COM_CREATE_GROUP:
+			handler = new CreateGroupHandler(s);
 			break;
 		case COM_DISBAND_GROUP:
+			handler = new DisbandGroupHandler(s);
 			break;
 		case COM_ADD_USER:
+			handler = new AddUserHandler(s);
 			break;
 		case COM_CREATE_USER:
+			handler = new CreateUserHandler(s);
 			break;
 		default:
+			handler = new NoHandler(s);
 			break;
 		}
 		
