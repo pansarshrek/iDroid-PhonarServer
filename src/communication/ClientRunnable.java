@@ -1,17 +1,23 @@
 package communication;
 
+import java.io.IOException;
 import java.net.Socket;
 
 public class ClientRunnable implements Runnable {
+	
+	private Socket clientSocket;
 
 	public ClientRunnable(Socket clientSocket) {
-		// TODO Auto-generated constructor stub
+		this.clientSocket = clientSocket;
 	}
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-		
+		try {
+			Communication.handleRequest(clientSocket);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
