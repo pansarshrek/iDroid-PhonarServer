@@ -17,4 +17,12 @@ public class User {
 	public Position getPosition() {
 		return position;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof User) {
+			return ((User) obj).name.equals(name);
+		}
+		return false;
+	}
 }
