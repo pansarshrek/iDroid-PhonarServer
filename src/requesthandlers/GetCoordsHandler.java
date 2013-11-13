@@ -1,19 +1,15 @@
 package requesthandlers;
 
-import java.io.IOException;
-import java.net.Socket;
+import java.io.DataInputStream;
+import java.net.DatagramSocket;
 
 public class GetCoordsHandler extends RequestHandler {
 
-	public GetCoordsHandler(Socket s) throws IOException {
-		super(s);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
-	public void handleRequest() {
+	public void internalHandle(DatagramSocket socket, DataInputStream dis) {
 		// TODO Auto-generated method stub
-
+		
 	}
+
 
 }

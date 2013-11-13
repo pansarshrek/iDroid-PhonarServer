@@ -1,20 +1,21 @@
 package requesthandlers;
 
+import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 public abstract class RequestHandler {
 
-	private DataOutputStream dos;
-	private DataInputStream dis;
-	
-	public RequestHandler(Socket s) throws IOException {
-		dos = new DataOutputStream(s.getOutputStream());
-		dis = new DataInputStream(s.getInputStream());
+	public void handleRequest(DatagramSocket socket, DatagramPacket packet) {
+		// Offset 1 to get rid of first byte which determines the type of
+		// request
+		DataInputStream dis = new DataInputStream(new ByteArrayInputStream(
+				packet.getData(), 1, packet.getLength()));
+		internalHandle(socket, dis);
 	}
-	
-	public abstract void handleRequest();
-	
+
+	public abstract void internalHandle(DatagramSocket socket,
+			DataInputStream dis);
+
 }

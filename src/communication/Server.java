@@ -30,24 +30,17 @@ public class Server {
 	}
 
 	private void start() {
-		byte[] megaBuffer= new byte[65535];
+		byte[] megaBuffer = new byte[65535];
 		DatagramPacket megaDatagramPacket = new DatagramPacket(megaBuffer, 0);
 		System.out.println("Server running");
 		while (true) {
 			megaDatagramPacket.setLength(megaBuffer.length);
 			try {
 				socket.receive(megaDatagramPacket);
-				String msg = new String(megaDatagramPacket.getData(), 0, megaDatagramPacket.getLength(), "utf-8");
-				System.out.println(msg);
+				Communication.handleRequest(socket, megaDatagramPacket);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-//			try {
-//				Thread t = new Thread(new ClientRunnable(socket.accept()));
-//				t.start();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 		}
 	}
 	
