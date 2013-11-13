@@ -28,6 +28,7 @@ public class Communication {
 		if (packet.getLength() > 0) {
 			byte firstByte = packet.getData()[0];
 			RequestHandler handler = null;
+			System.out.println((int) firstByte);
 			switch (firstByte) {
 			case COM_UPDATE_COORDS:
 				handler = new UpdateCoordsHandler();
