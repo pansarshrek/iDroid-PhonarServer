@@ -14,7 +14,7 @@ import requesthandlers.UpdateCoordsHandler;
 
 public class Communication {
 	
-	public static final int COM_UPDATE_COORD = 0,
+	public static final int COM_UPDATE_COORDS = 0,
 		COM_GET_COORDS = 1,
 		COM_CREATE_GROUP = 2,
 		COM_DISBAND_GROUP = 3,
@@ -30,7 +30,7 @@ public class Communication {
 		RequestHandler handler = null;
 	
 		switch (b) {
-		case COM_UPDATE_COORD:
+		case COM_UPDATE_COORDS:
 			handler = new UpdateCoordsHandler(s);
 			break;
 		case COM_GET_COORDS:
