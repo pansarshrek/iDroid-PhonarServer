@@ -33,6 +33,7 @@ public class Server {
 			try {
 				Thread t = new Thread(new ClientRunnable(ss.accept()));
 				t.start();
+				System.out.println("Some asshole connected");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
