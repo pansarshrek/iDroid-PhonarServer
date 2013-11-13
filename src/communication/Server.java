@@ -1,15 +1,16 @@
 package communication;
 
 import java.io.IOException;
-import java.net.ServerSocket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 
 public class Server {
 
 	private static final int DEFAULT_PORT = 13337;
-	private ServerSocket ss;
+	private DatagramSocket socket;
 	
 	public Server(int port) throws IOException {
-		ss = new ServerSocket(port);
+		socket = new DatagramSocket(port);
 	}
 	
 	public static void main(String[] args) {
@@ -29,13 +30,24 @@ public class Server {
 	}
 
 	private void start() {
+		byte[] megaBuffer= new byte[65535];
+		DatagramPacket megaDatagramPacket = new DatagramPacket(megaBuffer, 0);
+		System.out.println("Server running");
 		while (true) {
+			megaDatagramPacket.setLength(megaBuffer.length);
 			try {
-				Thread t = new Thread(new ClientRunnable(ss.accept()));
-				t.start();
+				socket.receive(megaDatagramPacket);
+				String msg = new String(megaDatagramPacket.getData(), 0, megaDatagramPacket.getLength(), "utf-8");
+				System.out.println(msg);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+//			try {
+//				Thread t = new Thread(new ClientRunnable(socket.accept()));
+//				t.start();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 	
