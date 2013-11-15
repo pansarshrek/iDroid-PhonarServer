@@ -3,10 +3,7 @@ package communication;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-import requesthandlers.AddUserHandler;
-import requesthandlers.CreateGroupHandler;
 import requesthandlers.CreateUserHandler;
-import requesthandlers.DisbandGroupHandler;
 import requesthandlers.GetCoordsHandler;
 import requesthandlers.NoHandler;
 import requesthandlers.RequestHandler;
@@ -35,15 +32,6 @@ public class Communication {
 				break;
 			case COM_GET_COORDS:
 				handler = new GetCoordsHandler();
-				break;
-			case COM_CREATE_GROUP:
-				handler = new CreateGroupHandler();
-				break;
-			case COM_DISBAND_GROUP:
-				handler = new DisbandGroupHandler();
-				break;
-			case COM_ADD_USER:
-				handler = new AddUserHandler();
 				break;
 			case COM_CREATE_USER:
 				handler = new CreateUserHandler();
