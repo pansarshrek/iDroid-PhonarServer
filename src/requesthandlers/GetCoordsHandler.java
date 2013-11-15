@@ -19,6 +19,8 @@ public class GetCoordsHandler extends RequestHandler {
 			
 			List<User> users = UserDatabase.getUsers();
 			
+			dos.writeInt(users.size());
+			
 			for(User u : users) {
 				u.toStream(dos);
 			}
