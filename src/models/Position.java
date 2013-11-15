@@ -1,6 +1,7 @@
 package models;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Position {
@@ -32,6 +33,12 @@ public class Position {
 
 	public double getAltitude() {
 		return altitude;
+	}
+	
+	public void toStream(DataOutputStream dos) throws IOException {
+		dos.writeDouble(latitude);
+		dos.writeDouble(longitude);
+		dos.writeDouble(altitude);
 	}
 
 }

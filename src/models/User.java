@@ -1,5 +1,8 @@
 package models;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class User {
 	
 	private String name;
@@ -24,5 +27,10 @@ public class User {
 			return ((User) obj).name.equals(name);
 		}
 		return false;
+	}
+	
+	public void toStream(DataOutputStream dos) throws IOException {
+		dos.writeUTF(name);
+		position.toStream(dos);
 	}
 }

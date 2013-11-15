@@ -1,14 +1,33 @@
 package requesthandlers;
 
 import java.io.DataInputStream;
-import java.net.DatagramSocket;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.util.List;
+
+import models.User;
+import models.UserDatabase;
+
+import communication.Communication;
 
 public class GetCoordsHandler extends RequestHandler {
 
 	@Override
-	public void internalHandle(DatagramSocket socket, DataInputStream dis) {
-		// TODO Auto-generated method stub
+	public DatagramPacket internalHandle(DataInputStream dis) throws IOException {
 		
+			dos.writeByte(Communication.COM_GET_COORDS);
+			
+			List<User> users = UserDatabase.getUsers();
+			
+			for(User u : users) {
+				u.toStream(dos);
+			}
+		
+
+
+		byte[] buffer = baos.toByteArray();
+		
+		return new DatagramPacket(buffer, buffer.length);
 	}
 
 

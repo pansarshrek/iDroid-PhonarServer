@@ -1,14 +1,14 @@
 package requesthandlers;
 
 import java.io.DataInputStream;
-import java.net.DatagramSocket;
+import java.net.DatagramPacket;
 
 public class NoHandler extends RequestHandler {
 
 	@Override
-	public void internalHandle(DatagramSocket socket, DataInputStream dis) {
+	public DatagramPacket internalHandle(DataInputStream dis) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 

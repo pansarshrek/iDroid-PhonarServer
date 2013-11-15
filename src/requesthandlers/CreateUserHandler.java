@@ -2,28 +2,38 @@ package requesthandlers;
 
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-
-import exceptions.UserExistsException;
 
 import models.Position;
 import models.UserDatabase;
 
+import communication.Communication;
+
+import exceptions.UserExistsException;
+
 public class CreateUserHandler extends RequestHandler {
 
 	@Override
-	public void internalHandle(DatagramSocket socket, DataInputStream dis) {
+	public DatagramPacket internalHandle(DataInputStream dis) throws IOException {
+		
 		try {
+			dos.writeByte(Communication.COM_CREATE_USER);
 			String name = dis.readUTF();
 			Position pos = new Position(dis);
 			
-			UserDatabase.addUser(name, pos);
-		} catch (IOException e) {
-			e.printStackTrace();
+			if (UserDatabase.addUser(name, pos)) {
+				dos.writeByte(Communication.ANS_SUCCESS);
+			} 
 		} catch (UserExistsException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+			dos.writeByte(Communication.ANS_FAILURE);
+		}
+		
+		byte[] buffer = baos.toByteArray();
+		
+		DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+		
+		return packet;
 	}
 
 
